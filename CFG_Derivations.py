@@ -1,4 +1,3 @@
-from os import system
 import streamlit as st
 from collections import defaultdict
 import random
@@ -118,11 +117,14 @@ def main():
         text_display = '<h1 style="font-family:Sans-serif; color:#00BCD0;">Discrete Structures and Automata Theory</h1>'
         st.markdown(text_display, unsafe_allow_html=True)
         st.write("### Course Project: Simulate Derivations of Context-Free Grammar")
-        text_display = '<p style="font-family:Sans-serif; color:#2b2b2b; font-size: 20px">This project checks if an input string is part of the language by performing Leftmost Derivation and Rightmost Derivation based on the users choice.</p>'
+        text_display = '<p style="font-family:Sans-serif; color:#BBBBBB; font-size: 20px">This project checks if an input string is part of the language by performing Leftmost Derivation and Rightmost Derivation based on the users choice.</p>'
         st.markdown(text_display, unsafe_allow_html=True)
 
         st.title("Simulating Context-Free Grammar")
         st.write("### Enter Production Rules")
+        
+        text_display= '<p style="font-family:Sans-serif; color:#74bed6; font-size: 15px">Production rules must be entered in the specified format. For Example: S -> aSb<</p>'
+        st.markdown(text_display, unsafe_allow_html=True)
 
         s=st.number_input("Number of Rules", format = "%d", step = 1)
         
