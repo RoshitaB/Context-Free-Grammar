@@ -27,7 +27,7 @@ class CFG(object):
         # print(rand_prod)
         rule=(str(rand_prod).replace(',','').replace('\'','').replace('(','').replace(')','').replace(' ',''))
         # print(rule)
-        self.winString_left(rule)
+        self.replace_left(rule)
         for sym in rand_prod:
 			# for non-terminals, recurse
             if sym in self.prod:
@@ -36,7 +36,7 @@ class CFG(object):
                 sentence += sym + ' '
         return sentence
 
-    def winString_left(self, rule):
+    def replace_left(self, rule):
 		# store current rule, print 
         # on next iteration: search the rule, replace instances of CAPITAL letters with the new rule
         if self.count<1:
@@ -60,7 +60,7 @@ class CFG(object):
                 cap+=1
 
         if(cap>1):
-            self.winString_right(rule[::-1], cap)
+            self.replace_right()(rule[::-1], cap)
             for sym in reversed(rand_prod): 
             # for non-terminals, recurse
                 if sym in self.prod:
@@ -69,7 +69,7 @@ class CFG(object):
                     sentence += sym + ' '
             return sentence[::-1]
         elif(cap==1):
-            self.winString_left(rule)
+            self.replace_left(rule)
             for sym in rand_prod:
                 # for non-terminals, recurse
                 if sym in self.prod:
@@ -78,7 +78,7 @@ class CFG(object):
                     sentence += sym + ' '
             return sentence
         else:
-            self.winString_right(rule, cap)
+            self.replace_right()(rule, cap)
             for sym in (rand_prod):
             # for non-terminals, recurse
                 if sym in self.prod:
@@ -87,7 +87,7 @@ class CFG(object):
                     sentence += sym + ' '
             return sentence
     
-    def winString_right(self, rule, cap):
+    def replace_right(self, rule, cap):
         if self.count<1:
             self.current=rule #AB
         else:
@@ -105,7 +105,7 @@ class CFG(object):
             self.win = self.win+self.current+' => '
         self.count = self.count + 1
     
-    def clearWinString(self):
+    def clearString(self):
         self.win = 'S=> '
         self.count = 0
         self.current = ''
@@ -123,7 +123,7 @@ def main():
         st.title("Simulating Context-Free Grammar")
         st.write("### Enter Production Rules")
         
-        text_display= '<p style="font-family:Sans-serif; color:#74bed6; font-size: 15px">Production rules must be entered in the specified format. For Example: S -> aSb<</p>'
+        text_display= '<p style="font-family:Sans-serif; color:#74bed6; font-size: 15px">Production rules must be entered in the specified format. For Example: S -> aSb</p>'
         st.markdown(text_display, unsafe_allow_html=True)
 
         s=st.number_input("Number of Rules", format = "%d", step = 1)
@@ -153,7 +153,7 @@ def main():
             for i in range(0, 50000):
                 if str(w.strip()) == lmd.strip():
                     break	
-                cfg1.clearWinString()
+                cfg1.clearString()
                 lmd = cfg1.gen_random_left('S')
 
             if str(w.strip()) == lmd.strip():
@@ -167,12 +167,12 @@ def main():
                 st.write("### The String doesn't not exist in grammar")
                 st.error("Try Again")
             
-            cfg1.clearWinString()
+            cfg1.clearString()
             rmd = cfg1.gen_random_right('S')
             for i in range(0, 50000):
                 if str(w.strip()) == rmd.strip():
                     break	
-                cfg1.clearWinString()
+                cfg1.clearString()
                 rmd = cfg1.gen_random_right('S')
             
             if str(w.strip()) == rmd.strip():
